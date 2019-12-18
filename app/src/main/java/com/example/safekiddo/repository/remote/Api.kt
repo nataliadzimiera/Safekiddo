@@ -11,5 +11,5 @@ interface Api {
         @Query("token") token: String,
         @Query("device") device: String,
         @Query("brand") brand: String
-    ): Observable<PhoneDetails>
+    ): Observable<List<PhoneDetails>>
 }
