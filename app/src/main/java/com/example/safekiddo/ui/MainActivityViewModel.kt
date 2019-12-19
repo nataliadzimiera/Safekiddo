@@ -10,12 +10,15 @@ import com.example.safekiddo.repository.remote.Api
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 import javax.inject.Inject
 
 const val APIKEY = "ed51dfc18ec4facf752bfca2f2de8ce33092188e619cfc52"
 
-class MainActivityViewModel @Inject constructor(private val api: Api,
-                                                private val db: PhoneDatabase) : ViewModel() {
+class MainActivityViewModel @Inject constructor(
+    private val api: Api,
+    private val db: PhoneDatabase
+) : ViewModel() {
 
     val compositeDisposable = CompositeDisposable()
 
@@ -24,16 +27,22 @@ class MainActivityViewModel @Inject constructor(private val api: Api,
     val devicesLiveData: LiveData<List<PhoneDetails>>
         get() = _devicesLiveData
 
+    private val _phoneDataLiveData = MutableLiveData<List<PhoneData>>()
+    val phoneDataLiveData: LiveData<List<PhoneData>>
+        get() = _phoneDataLiveData
 
-    fun getData(){
+    fun getData() {
         val listPhones = db.phoneDao().getAll()
         val size = listPhones.size
         db.phoneDao().getAll().size
-        if (size < 10){
+        _phoneDataLiveData.value = db.phoneDao().getAll()
+
+        if (size < 10) {
             getPhones()
 
         }
     }
+
     fun getPhones() {
         val devicesList = mutableListOf<PhoneDetails>()
         compositeDisposable.add(
@@ -56,17 +65,29 @@ class MainActivityViewModel @Inject constructor(private val api: Api,
                         devicesList.addAll(it)
                         _devicesLiveData.value = devicesList
                         val size = devicesList.size
-                        for (n in 0..size){
-                            db.phoneDao().insert(PhoneData(n, devicesLiveData.value!!.get(n).deviceName,
-                                devicesLiveData.value!!.get(n).brand, devicesLiveData.value?.get(n)?.dimensions,
-                                devicesLiveData.value?.get(n)?.weight, devicesLiveData.value?.get(n)?.size,
-                                devicesLiveData.value?.get(n)?.cardSlot, devicesLiveData.value?.get(n)?.loudspeaker,
-                                devicesLiveData.value?.get(n)?.wlan, devicesLiveData.value?.get(n)?.bluetooth,
-                                devicesLiveData.value?.get(n)?.gps, devicesLiveData.value?.get(n)?.radio,
-                                devicesLiveData.value?.get(n)?.usb, devicesLiveData.value?.get(n)?.messaging,
-                                devicesLiveData.value?.get(n)?.browser, devicesLiveData.value?.get(n)?.java,
-                                devicesLiveData.value?.get(n)?.colors))
-                            db.phoneDao().getAll().size
+                        for (n in 0..size) {
+                            db.phoneDao().insert(
+                                PhoneData(
+                                    n,
+                                    devicesLiveData.value!!.get(n).deviceName,
+                                    devicesLiveData.value!!.get(n).brand,
+                                    devicesLiveData.value?.get(n)?.dimensions,
+                                    devicesLiveData.value?.get(n)?.weight,
+                                    devicesLiveData.value?.get(n)?.size,
+                                    devicesLiveData.value?.get(n)?.cardSlot,
+                                    devicesLiveData.value?.get(n)?.loudspeaker,
+                                    devicesLiveData.value?.get(n)?.wlan,
+                                    devicesLiveData.value?.get(n)?.bluetooth,
+                                    devicesLiveData.value?.get(n)?.gps,
+                                    devicesLiveData.value?.get(n)?.radio,
+                                    devicesLiveData.value?.get(n)?.usb,
+                                    devicesLiveData.value?.get(n)?.messaging,
+                                    devicesLiveData.value?.get(n)?.browser,
+                                    devicesLiveData.value?.get(n)?.java,
+                                    devicesLiveData.value?.get(n)?.colors
+
+                                )
+                            )
 
                         }
                     },
