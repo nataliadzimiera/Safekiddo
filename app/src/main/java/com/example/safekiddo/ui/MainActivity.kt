@@ -2,18 +2,14 @@ package com.example.safekiddo.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.safekiddo.R
 import com.example.safekiddo.databinding.ActivityMainBinding
 import com.example.safekiddo.di.ViewModelInjectionFactory
-import com.example.safekiddo.ui.DetailsActivity.DetailsActivity
+import com.example.safekiddo.ui.detailsActivity.DetailsActivity
 import dagger.android.AndroidInjection
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -69,6 +65,21 @@ class MainActivity : DaggerAppCompatActivity() {
         adapter.setOnClickListener { device ->
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra("device", device)
+//            intent.putExtra("model", device.deviceName)
+//            intent.putExtra("bluethooth", device.bluetooth)
+//            intent.putExtra("browser", device.browser)
+//            intent.putExtra("card", device.cardSlot)
+//            intent.putExtra("colors", device.colors)
+//            intent.putExtra("dimensions", device.dimensions)
+//            intent.putExtra("gps", device.gps)
+//            intent.putExtra("java", device.java)
+//            intent.putExtra("loudspeaker", device.loudspeaker)
+//            intent.putExtra("messaging", device.messaging)
+//            intent.putExtra("radio", device.radio)
+//            intent.putExtra("size", device.size)
+//            intent.putExtra("usb", device.usb)
+//            intent.putExtra("weight", device.weight)
+//            intent.putExtra("wlan", device.wlan)
             startActivity(intent)
         }
     }
