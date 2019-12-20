@@ -2,6 +2,7 @@ package com.example.safekiddo.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -38,7 +39,7 @@ class MainActivity : DaggerAppCompatActivity() {
         swipeToRefresh()
     }
 
-    fun initRecyclerView(){
+    fun initRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setDivider(R.drawable.recycler_view_divider)
@@ -47,39 +48,30 @@ class MainActivity : DaggerAppCompatActivity() {
 
     }
 
-    fun registerObservers(){
-        mainActivityViewModel.phoneDataLiveData.observe(this, Observer { phoneDetails->
+    fun registerObservers() {
+        mainActivityViewModel.phoneDataLiveData.observe(this, Observer { phoneDetails ->
             adapter.setPhonesList(phoneDetails)
+            adapter.notifyDataSetChanged()
+            swipe_refresh.isRefreshing = false
+        })
+        mainActivityViewModel.progressLiveData.observe(this, Observer {
+            if (it) {
+                binding.progressBar.visibility = View.VISIBLE
+            } else binding.progressBar.visibility = View.GONE
         })
     }
 
-    fun swipeToRefresh(){
+    fun swipeToRefresh() {
         swipe_refresh.setOnRefreshListener {
-            mainActivityViewModel.getPhones()
-            adapter.notifyDataSetChanged()
-            swipe_refresh.isRefreshing = false
+            mainActivityViewModel.clearDatabse()
+            mainActivityViewModel.getPhones(true)
         }
     }
 
-    fun openNewActivity(){
+    fun openNewActivity() {
         adapter.setOnClickListener { device ->
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra("device", device)
-//            intent.putExtra("model", device.deviceName)
-//            intent.putExtra("bluethooth", device.bluetooth)
-//            intent.putExtra("browser", device.browser)
-//            intent.putExtra("card", device.cardSlot)
-//            intent.putExtra("colors", device.colors)
-//            intent.putExtra("dimensions", device.dimensions)
-//            intent.putExtra("gps", device.gps)
-//            intent.putExtra("java", device.java)
-//            intent.putExtra("loudspeaker", device.loudspeaker)
-//            intent.putExtra("messaging", device.messaging)
-//            intent.putExtra("radio", device.radio)
-//            intent.putExtra("size", device.size)
-//            intent.putExtra("usb", device.usb)
-//            intent.putExtra("weight", device.weight)
-//            intent.putExtra("wlan", device.wlan)
             startActivity(intent)
         }
     }
