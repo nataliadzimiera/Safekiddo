@@ -45,6 +45,7 @@ class MainActivityViewModel @Inject constructor(
             progressLiveData.value = true
         }
         compositeDisposable.add(
+            // The API doesn't work when I try to send 3 brands in one query
             api.getPhonesList(APIKEY, "S", "Xiaomi")
                 .flatMap {
                     devicesList.addAll(it)
