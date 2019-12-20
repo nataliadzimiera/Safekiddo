@@ -5,14 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.safekiddo.databinding.ItemPhoneBinding
 import com.example.safekiddo.model.PhoneData
-import com.example.safekiddo.model.PhoneDetails
 import javax.inject.Inject
 
-class PhonesAdapter @Inject constructor(): RecyclerView.Adapter<PhonesAdapter.ViewHolder>() {
+class PhonesAdapter @Inject constructor() : RecyclerView.Adapter<PhonesAdapter.ViewHolder>() {
 
 
     private var phonesList: List<PhoneData> = emptyList()
-    private var onClick: (PhoneData) ->Unit = {}
+    private var onClick: (PhoneData) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhonesAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,7 +23,7 @@ class PhonesAdapter @Inject constructor(): RecyclerView.Adapter<PhonesAdapter.Vi
         return phonesList.size
     }
 
-    fun setPhonesList(phonesList: List<PhoneData>){
+    fun setPhonesList(phonesList: List<PhoneData>) {
         this.phonesList = phonesList
         notifyDataSetChanged()
     }
@@ -36,9 +35,11 @@ class PhonesAdapter @Inject constructor(): RecyclerView.Adapter<PhonesAdapter.Vi
     override fun onBindViewHolder(holder: PhonesAdapter.ViewHolder, position: Int) {
         holder.bind(phonesList[position])
     }
-    class ViewHolder(private val binding: ItemPhoneBinding, val onClick: (PhoneData) -> Unit): RecyclerView.ViewHolder(binding.root){
+
+    class ViewHolder(private val binding: ItemPhoneBinding, val onClick: (PhoneData) -> Unit) :
+        RecyclerView.ViewHolder(binding.root) {
         lateinit var phoneDetails: PhoneData
-        fun bind(phoneDetails: PhoneData){
+        fun bind(phoneDetails: PhoneData) {
             this.phoneDetails = phoneDetails
             binding.textPhoneBrand.text = phoneDetails.brand
             binding.textPhoneModel.text = phoneDetails.deviceName

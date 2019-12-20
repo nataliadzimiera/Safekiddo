@@ -6,6 +6,6 @@ import com.example.safekiddo.model.PhoneData
 import com.example.safekiddo.repository.local.dao.PhoneDao
 
 @Database(entities = arrayOf(PhoneData::class), version = 1, exportSchema = false)
-abstract class PhoneDatabase : RoomDatabase(){
+abstract class PhoneDatabase : RoomDatabase() {
     abstract fun phoneDao(): PhoneDao
 }

@@ -11,7 +11,8 @@ import dagger.android.support.AndroidSupportInjectionModule
     modules = [
         ActivitiesModule::class,
         AndroidSupportInjectionModule::class
-    ])
+    ]
+)
 interface SessionComponent : AndroidInjector<App> {
     @Subcomponent.Builder
     abstract class Builder {

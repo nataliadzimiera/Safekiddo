@@ -10,7 +10,6 @@ import com.example.safekiddo.repository.remote.Api
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
@@ -36,12 +35,13 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
-    fun clearDatabse(){
+    fun clearDatabse() {
         db.phoneDao().deleteAll()
     }
+
     fun getPhones(isRefresh: Boolean) {
         var devicesList = mutableListOf<PhoneDetails>()
-        if(!isRefresh){
+        if (!isRefresh) {
             progressLiveData.value = true
         }
         compositeDisposable.add(
@@ -81,9 +81,10 @@ class MainActivityViewModel @Inject constructor(
                                 devicesList[n].messaging,
                                 devicesList[n].browser,
                                 devicesList[n].java,
-                                devicesList[n].colors)
+                                devicesList[n].colors
+                            )
                             phoneDataList.add(
-                                 phoneData
+                                phoneData
                             )
                             db.phoneDao().insert(phoneData)
                         }

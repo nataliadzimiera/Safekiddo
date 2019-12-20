@@ -2,9 +2,7 @@ package com.example.safekiddo.di.module
 
 import android.app.Application
 import androidx.room.Room
-import com.example.safekiddo.model.PhoneData
 import com.example.safekiddo.repository.local.PhoneDatabase
-import com.example.safekiddo.repository.local.dao.PhoneDao
 import com.example.safekiddo.repository.remote.Api
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -48,7 +46,7 @@ class DomainToolsModule {
 
     @Provides
     @Singleton
-    internal fun provideDb(app: Application): PhoneDatabase{
+    internal fun provideDb(app: Application): PhoneDatabase {
         return Room.databaseBuilder(app, PhoneDatabase::class.java, "database-phone")
             .allowMainThreadQueries()
             .fallbackToDestructiveMigration()

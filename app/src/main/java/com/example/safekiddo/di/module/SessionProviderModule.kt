@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module(subcomponents = [SessionComponent::class])
-internal class SessionProviderModule{
+internal class SessionProviderModule {
     @Provides
     internal fun providesSessionComponent(builder: SessionComponent.Builder): SessionComponent {
         return builder.build()

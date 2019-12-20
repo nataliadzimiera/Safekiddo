@@ -25,7 +25,7 @@ data class PhoneDetails(
     val browser: String?,
     val java: String?,
     val colors: String?
-): Parcelable {
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),

@@ -1,8 +1,8 @@
 package com.example.safekiddo.di.module
 
 import com.example.safekiddo.di.ActivityScope
-import com.example.safekiddo.ui.detailsActivity.DetailsActivity
 import com.example.safekiddo.ui.MainActivity
+import com.example.safekiddo.ui.detailsActivity.DetailsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
